@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5000/api/books';
+const API_URL = 'https://book-list-z7cq.onrender.com/api/books';
+
 
 export const getBooks = () => axios.get(API_URL);
 export const addBook = (book) => axios.post(API_URL, book);
