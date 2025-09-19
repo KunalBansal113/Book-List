@@ -25,11 +25,12 @@ mongoose.connect(process.env.MONGO_URI, {
 app.use('/api/books', bookRoutes);
 
 // Serve React frontend
-app.use(express.static(path.join(__dirname, '../frontend/build')));
+const frontendBuildPath = path.join(__dirname, '../frontend/build');
+app.use(express.static(frontendBuildPath));
 
-// Catch-all route for React (works in Render and Express 4/5)
-app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
+// **Catch-all route using regex for Express 5**
+app.get(/^\/(?!api).*/, (req, res) => {
+  res.sendFile(path.join(frontendBuildPath, 'index.html'));
 });
 
 // Start server
