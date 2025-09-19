@@ -2,7 +2,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
-
 require('dotenv').config();
 
 const bookRoutes = require('./routes/bookRoutes');
@@ -28,7 +27,8 @@ app.use('/api/books', bookRoutes);
 // Serve React frontend
 app.use(express.static(path.join(__dirname, '../frontend/build')));
 
-app.get('*', (req, res) => {
+// Catch-all route for React (works in Render and Express 4/5)
+app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
 });
 
